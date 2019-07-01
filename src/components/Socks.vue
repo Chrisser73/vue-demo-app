@@ -4,13 +4,13 @@
         <div class="flex-full img-wrapper">
             <h1><strong>{{ msg }}</strong> 😎</h1>
         </div>
-        <div class="product-image flex-half">
+        <div class="product-image flex-third">
             <div class="img-wrapper">
                 <img :src="data.url" :alt="alt"/>
             </div>
         </div>
 
-        <div class="product-info flex-half">
+        <div class="product-info flex-third">
             <h3>{{ data.product }}</h3>
             <span v-show="onSale">On sale!</span>
             <p class="info">{{ getSaleStatus }}</p>
@@ -42,21 +42,26 @@
             <div class="flex-full">
                 <hr/>
                 <div class="flex-wrapper">
-                    <div class="flex-half">
+                    <div class="flex-half pull-right">
                         <button v-on:click="addToCart">Add to Cart</button>
-                    </div>
-                    <div class="flex-half">
-                        <div class="cart">
-                            <p>Cart({{ cart }})</p>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <template>
+            <Cart
+                :data="{
+                    cart
+                }"
+            />
+        </template>
     </div>
 </template>
 
 <script>
+	import Cart from './Cart.vue';
+
 	export default {
 		name: 'Socks',
 		props: {
@@ -65,6 +70,9 @@
 				product: String,
 				url: String
 			}
+		},
+		components: {
+			Cart
 		},
 		data() {
 			return {
