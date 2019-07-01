@@ -25,7 +25,11 @@
 	};
 </script>
 
-<style>
+<style lang="scss">
     @import './main/normalize.css';
-    @import 'app.scss';
+    @import './main/main.scss';
+</style>
+
+<style scoped lang="scss">
+    @import './app.scss';
 </style>

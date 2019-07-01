@@ -13,12 +13,7 @@
         <div class="product-info flex-half">
             <h3>{{ data.product }}</h3>
             <span v-show="onSale">On sale!</span>
-
-            <p v-if="inventory > 10" style="color: green">In Stock</p>
-            <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out!</p>
-            <p v-else>Out of Stock</p>
-
-            <p>{{ getSaleStatus }}</p>
+            <p class="info">{{ getSaleStatus }}</p>
 
             <div class="flex-wrapper">
                 <div class="flex-half">
@@ -74,7 +69,7 @@
 		data() {
 			return {
 				alt: 'Socks',
-				inventory: '100',
+				inventory: 7,
 				onSale: true,
 				details: ['80% cotton', '20% polyester', 'Gender-neutral'],
 				variants: [
@@ -92,16 +87,17 @@
 			};
 		},
 		methods: {
-			addToCart: function () {
+			addToCart () {
 				this.cart += 1;
 			}
 		},
         computed: {
-			getSaleStatus: function (){
-				if (this.inventory > 10) {
+			getSaleStatus: function () {
+				const invStock = this.inventory;
+				if (invStock > 10) {
 					return 'In Stock';
-                } else if (this.inventory <= 10 && this.inventory > 0){
-					return 'Almost sold out!'
+                } else if (invStock <= 10 && invStock > 0){
+					return 'Almost sold out! Just ' + invStock + ' left!'
                 } else {
 					return 'Out of Stock'
                 }
@@ -111,6 +107,6 @@
 	};
 </script>
 
-<style scoped>
-    @import 'socks.scss';
+<style scoped lang="scss">
+    @import 'socks';
 </style>

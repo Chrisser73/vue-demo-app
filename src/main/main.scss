@@ -1,0 +1,39 @@
+@import "variables";
+@import "fonts";
+@import "buttons";
+@import "lists";
+
+.info {
+  color: $color-green;
+  font-weight: bold;
+}
+
+.img-wrapper {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.flex-wrapper {
+  -ms-box-orient: horizontal;
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row wrap;
+  align-items: stretch;
+
+  .flex-full {
+    flex: 1 100%;
+  }
+
+  .flex-half{
+    margin-top: 10px;
+    width: 50%;
+
+    @media only screen and (max-width: 768px) {
+      flex: 1 100%;
+    }
+    @media only screen and (min-width : 992px) {
+      flex: 1;
+    }
+  }
+}
