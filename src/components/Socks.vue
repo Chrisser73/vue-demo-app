@@ -6,7 +6,7 @@
         </div>
         <div class="product-image flex-third">
             <div class="img-wrapper">
-                <img :src="data.url" :alt="alt"/>
+                <img :src="mainImage" :alt="alt"/>
             </div>
         </div>
 
@@ -22,13 +22,11 @@
                         <li v-for="(detail, index) in details" :key="index">{{ detail }}</li>
                     </ul>
 
-
                     <div v-if="variants" class="color-choose">
                         <h4>Colors:</h4>
-                        <a v-for="variant in variants" :key="variant.variantId" href="" :class="variant.variantColor"></a>
+                        <a @mouseover="updateProduct(variant.image)" v-for="variant in variants" :key="variant.variantId" href="" :class="variant.variantColor"></a>
                     </div>
                 </div>
-
 
                 <div class="flex-half">
                     <div v-if="sizes.length > 0">
@@ -67,8 +65,7 @@
 		props: {
 			msg: String,
 			data: {
-				product: String,
-				url: String
+				product: String
 			}
 		},
 		components: {
@@ -76,18 +73,21 @@
 		},
 		data() {
 			return {
+				mainImage: '/assets/socks/vmSocks-green-onWhite.jpg',
 				alt: 'Socks',
-				inventory: 7,
+				inventory: 15,
 				onSale: true,
 				details: ['80% cotton', '20% polyester', 'Gender-neutral'],
 				variants: [
 					{
 						variantId: 2234,
-						variantColor: 'green'
+						variantColor: 'green',
+                        image: '/assets/socks/vmSocks-green-onWhite.jpg',
 					},
 					{
 						variantId: 2235,
-						variantColor: 'blue'
+						variantColor: 'blue',
+						image: '/assets/socks/vmSocks-blue-onWhite.jpg',
 					}
 				],
 				sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
@@ -97,7 +97,11 @@
 		methods: {
 			addToCart () {
 				this.cart += 1;
-			}
+				this.inventory -= 1;
+			},
+			updateProduct (image) {
+				this.mainImage = image;
+            }
 		},
         computed: {
 			getSaleStatus: function () {

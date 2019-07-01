@@ -49,10 +49,18 @@
 
 .color-choose {
   a {
+    border: 4px solid white;
+    box-sizing: unset;
     display: inline-block;
     width: 30px;
     height: 30px;
     margin-right: 10px;
+    border-radius: 100%;
+
+    &:hover {
+      border-color: $color-dark-main;
+
+    }
 
     &.green {
       background: $color-green;
