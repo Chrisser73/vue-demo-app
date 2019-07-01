@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # vue-demo
 
 ## Project setup
@@ -31,4 +30,3 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 =======
 # vue-demo-app
 Vue Tryouts
->>>>>>> 3ec100e877022aa1a83a7d0ec21da437a8b1191d

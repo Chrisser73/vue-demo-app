@@ -11,6 +11,10 @@
     "core-js": "^2.6.5",
     "vue": "^2.6.10"
   },
+  "engines": {
+    "node": "8.10.0",
+    "yarn": "1.12.3"
+  },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.8.0",
     "@vue/cli-plugin-eslint": "^3.8.0",
