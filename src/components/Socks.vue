@@ -24,7 +24,9 @@
 
                     <div v-if="variants" class="color-choose">
                         <h4>Colors:</h4>
-                        <a @mouseover="updateProduct(variant.image)" v-for="variant in variants" :key="variant.variantId" href="" :class="variant.variantColor"></a>
+                        <a @mouseover="updateProduct(variant.image)"
+                           v-for="variant in variants"
+                           :key="variant.variantId" href="" :class="variant.variantColor"></a>
                     </div>
                 </div>
 
@@ -41,7 +43,10 @@
                 <hr/>
                 <div class="flex-wrapper">
                     <div class="flex-half pull-right">
-                        <button v-on:click="addToCart">Add to Cart</button>
+                        <button v-on:click="removeFromCart" :disabled="!removeIsActive">Remove from Cart</button>
+                    </div>
+                    <div class="flex-half pull-right">
+                        <button v-on:click="addToCart" :disabled="!inStock">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -76,6 +81,7 @@
 				mainImage: '/assets/socks/vmSocks-green-onWhite.jpg',
 				alt: 'Socks',
 				inventory: 15,
+                inStock: true,
 				onSale: true,
 				details: ['80% cotton', '20% polyester', 'Gender-neutral'],
 				variants: [
@@ -91,14 +97,24 @@
 					}
 				],
 				sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-				cart: 0
+				cart: 0,
+				removeIsActive: false,
 			};
 		},
 		methods: {
 			addToCart () {
 				this.cart += 1;
 				this.inventory -= 1;
+				this.checkInventory();
 			},
+			removeFromCart () {
+                this.cart -= 1;
+                this.inventory += 1;
+				this.checkInventory();
+			},
+            checkInventory () {
+				this.removeIsActive = this.cart > 0 ? true : false;
+            },
 			updateProduct (image) {
 				this.mainImage = image;
             }
@@ -107,10 +123,13 @@
 			getSaleStatus: function () {
 				const invStock = this.inventory;
 				if (invStock > 10) {
+					this.inStock = true;
 					return 'In Stock';
                 } else if (invStock <= 10 && invStock > 0){
+					this.inStock = true;
 					return 'Almost sold out! Just ' + invStock + ' left!'
                 } else {
+					this.inStock = false;
 					return 'Out of Stock'
                 }
 

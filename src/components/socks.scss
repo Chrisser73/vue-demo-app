@@ -22,12 +22,6 @@
   }
 }
 
-.color-box {
-  width: 40px;
-  height: 40px;
-  margin-top: 5px;
-}
-
 .review-form {
   width: 400px;
   padding: 20px;
@@ -48,6 +42,8 @@
 
 
 .color-choose {
+  margin-top: 20px;
+
   a {
     border: 4px solid white;
     box-sizing: unset;

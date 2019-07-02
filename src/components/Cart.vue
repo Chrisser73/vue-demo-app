@@ -1,7 +1,7 @@
 <template>
     <div id="cart" class="flex-half">
         <div class="cart">
-            <p>Cart({{ data.cart }})</p>
+            <p>Cart ({{ data.cart }})</p>
         </div>
     </div>
 
