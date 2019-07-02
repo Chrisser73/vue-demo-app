@@ -26,7 +26,10 @@
                         <h4>Colors:</h4>
                         <a @mouseover="updateProduct(variant.image)"
                            v-for="variant in variants"
-                           :key="variant.variantId" href="" :class="variant.variantColor"></a>
+                           :key="variant.variantId"
+                           :class="variant.variantColor"
+                           :href="'#' + variant.variantColor"
+                        ></a>
                     </div>
                 </div>
 
@@ -43,10 +46,18 @@
                 <hr/>
                 <div class="flex-wrapper">
                     <div class="flex-half pull-right">
-                        <button v-on:click="removeFromCart" :disabled="!removeIsActive">Remove from Cart</button>
+                        <button
+                            v-on:click="removeFromCart"
+                            :disabled="!removeIsActive"
+                            :class="{ disabledButton: !removeIsActive}"
+                        >Remove from Cart</button>
                     </div>
                     <div class="flex-half pull-right">
-                        <button v-on:click="addToCart" :disabled="!inStock">Add to Cart</button>
+                        <button
+                            v-on:click="addToCart"
+                            :disabled="!inStock"
+                            :class="{ disabledButton: !inStock}"
+                        >Add to Cart</button>
                     </div>
                 </div>
             </div>

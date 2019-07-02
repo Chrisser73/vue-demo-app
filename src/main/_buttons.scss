@@ -7,8 +7,7 @@ button {
   font-size: 16px !important;
   font-weight: bold;
 
-  &.disabled,
-  &[disabled]{
+  &.disabledButton {
     background-color: $color-black-20;
   }
 }
