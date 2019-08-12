@@ -7,6 +7,7 @@
         <Socks
                 msg="My Cool Shop"
                 :data="{
+                    brand: 'Vue Mastery',
                     product:'Socks',
                 }"
         />
