@@ -13,7 +13,7 @@
         <div class="product-info flex-third">
             <h3>{{ data.product }}</h3>
             <span v-show="onSale">On sale!</span>
-            <p class="info">{{ getSaleStatus }}</p>
+            <p class="info" :class="{outOfStock: !inStock,  almostSoldOut: inventory <= 10}">{{ getSaleStatus }}</p>
 
             <div class="flex-wrapper">
                 <div class="flex-half">
@@ -28,7 +28,7 @@
                            v-for="variant in variants"
                            :key="variant.variantId"
                            :class="variant.variantColor"
-                           :href="'#' + variant.variantColor"
+                           :href="'?' + updateHref(variant.variantColor)"
                         ></a>
                     </div>
                 </div>
@@ -126,9 +126,19 @@
             checkInventory () {
 				this.removeIsActive = this.cart > 0 ? true : false;
             },
+			updateHref(paramColor){
+				var urlParam = 'color' + '=' + paramColor;
+                return urlParam;
+            },
 			updateProduct (image) {
-				this.mainImage = image;
+                this.mainImage = image;
             }
+		},
+		beforeMount(){
+			const urlParams = new URLSearchParams(window.location.search);
+			const colorVar = urlParams.get('color');
+
+			console.log(colorVar);
 		},
         computed: {
 			getSaleStatus: function () {

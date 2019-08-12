@@ -8,6 +8,15 @@
   font-weight: bold;
 }
 
+.almostSoldOut {
+  color: $color-warning;
+}
+
+.outOfStock {
+  color: $color-error;
+}
+
+
 .img-wrapper {
   display: block;
   width: 100%;
