@@ -7,5 +7,15 @@
   float: right;
   width: 100%;
   padding: 5px 20px;
-  border: 1px solid $color-black-20;
+  border: 1px solid $border-color;
+}
+
+.premium {
+  border-left: 1px solid $border-color;
+  border-top: 1px solid $border-color;
+  border-right: 1px solid $border-color;
+  padding: 10px;
+  font-weight: 700;
+  background: $color-dark-main;
+  color: $color-white;
 }

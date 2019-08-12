@@ -2,26 +2,35 @@
     <div id="app">
 
         <div class="nav-bar"></div>
-
         <div class="img-wrapper"><img alt="Vue logo" src="../public/assets/logo.png"></div>
-        <Socks
-                msg="My Cool Shop"
-                :data="{
-                    brand: 'Vue Mastery',
-                    product:'Socks',
-                }"
+
+        <Product
+            msg="My Cool Shop"
+            :premium=premium
+            :productData="{
+                brand: 'Vue Mastery',
+                product:'Socks',
+
+            }"
         />
+
     </div>
 </template>
 
 <script>
-	import Socks from './components/Socks.vue';
+	import Product from './components/Product.vue';
 
 	export default {
 		name: 'app',
 		components: {
-			Socks
-		}
+			Product
+		},
+        data() {
+			return {
+				premium: false
+            }
+        }
+
 	};
 </script>
 

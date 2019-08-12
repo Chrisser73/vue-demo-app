@@ -18,20 +18,53 @@
 
 .saleBanner {
   display: block;
-  width: 120px;
+  width: 60px;
+  height: 60px;
   color: white;
   font-weight: bold;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
+  transform: rotate(22deg);
   position: absolute;
   right: 40px;
+  text-align: center;
   top: 25px;
   padding: 8px;
   background: $color-green;
+  border-radius: 100%;
   text-align: center;
-  border-radius: 100px;
+  line-height: 21px;
 }
 
+hr {
+  border-color: $border-color;
+  border-top: 0;
+}
+
+.mr-1 {
+ margin-right: 12px;
+}
+.ml-1 {
+  margin-left: 12px;
+}
+.mt-1 {
+  margin-top: 12px;
+}
+.mb-1 {
+  margin-bottom: 12px;
+}
+
+.h2 {
+  font-size: 2rem;
+  line-height: 2.5rem;
+}
+
+.icon {
+  max-width: 25px;
+  max-height: 25px;
+  width: auto;
+  display: inline-block;
+  vertical-align: text-bottom;
+  height: auto;
+}
 
 .img-wrapper {
   position: relative;
