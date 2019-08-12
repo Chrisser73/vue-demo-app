@@ -4,21 +4,16 @@
         <div class="flex-full img-wrapper">
             <h1><strong>{{ msg }}</strong> 😎</h1>
         </div>
-        <div class="product-image flex-half">
+        <div class="product-image flex-third">
             <div class="img-wrapper">
-                <img :src="data.url" :alt="alt"/>
+                <img :src="mainImage" :alt="alt"/>
             </div>
         </div>
 
-        <div class="product-info flex-half">
+        <div class="product-info flex-third">
             <h3>{{ data.product }}</h3>
             <span v-show="onSale">On sale!</span>
-
-            <p v-if="inventory > 10" style="color: green">In Stock</p>
-            <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out!</p>
-            <p v-else>Out of Stock</p>
-
-            <p>{{ getSaleStatus }}</p>
+            <p class="info" :class="{outOfStock: !inStock,  almostSoldOut: inventory <= 10}">{{ getSaleStatus }}</p>
 
             <div class="flex-wrapper">
                 <div class="flex-half">
@@ -27,13 +22,16 @@
                         <li v-for="(detail, index) in details" :key="index">{{ detail }}</li>
                     </ul>
 
-
                     <div v-if="variants" class="color-choose">
                         <h4>Colors:</h4>
-                        <a v-for="variant in variants" :key="variant.variantId" href="" :class="variant.variantColor"></a>
+                        <a @mouseover="updateProduct(variant.image)"
+                           v-for="variant in variants"
+                           :key="variant.variantId"
+                           :class="variant.variantColor"
+                           :href="'?' + updateHref(variant.variantColor)"
+                        ></a>
                     </div>
                 </div>
-
 
                 <div class="flex-half">
                     <div v-if="sizes.length > 0">
@@ -47,62 +45,112 @@
             <div class="flex-full">
                 <hr/>
                 <div class="flex-wrapper">
-                    <div class="flex-half">
-                        <button v-on:click="addToCart">Add to Cart</button>
+                    <div class="flex-half pull-right">
+                        <button
+                            v-on:click="removeFromCart"
+                            :disabled="!removeIsActive"
+                            :class="{ disabledButton: !removeIsActive}"
+                        >Remove from Cart</button>
                     </div>
-                    <div class="flex-half">
-                        <div class="cart">
-                            <p>Cart({{ cart }})</p>
-                        </div>
+                    <div class="flex-half pull-right">
+                        <button
+                            v-on:click="addToCart"
+                            :disabled="!inStock"
+                            :class="{ disabledButton: !inStock}"
+                        >Add to Cart</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <template>
+            <Cart
+                :data="{
+                    cart
+                }"
+            />
+        </template>
     </div>
 </template>
 
 <script>
+	import Cart from './Cart.vue';
+
 	export default {
 		name: 'Socks',
 		props: {
 			msg: String,
 			data: {
-				product: String,
-				url: String
+				product: String
 			}
+		},
+		components: {
+			Cart
 		},
 		data() {
 			return {
+				mainImage: '/assets/socks/vmSocks-green-onWhite.jpg',
 				alt: 'Socks',
-				inventory: '100',
+				inventory: 15,
+                inStock: true,
 				onSale: true,
 				details: ['80% cotton', '20% polyester', 'Gender-neutral'],
 				variants: [
 					{
 						variantId: 2234,
-						variantColor: 'green'
+						variantColor: 'green',
+                        image: '/assets/socks/vmSocks-green-onWhite.jpg',
 					},
 					{
 						variantId: 2235,
-						variantColor: 'blue'
+						variantColor: 'blue',
+						image: '/assets/socks/vmSocks-blue-onWhite.jpg',
 					}
 				],
 				sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-				cart: 0
+				cart: 0,
+				removeIsActive: false,
 			};
 		},
 		methods: {
-			addToCart: function () {
+			addToCart () {
 				this.cart += 1;
-			}
+				this.inventory -= 1;
+				this.checkInventory();
+			},
+			removeFromCart () {
+                this.cart -= 1;
+                this.inventory += 1;
+				this.checkInventory();
+			},
+            checkInventory () {
+				this.removeIsActive = this.cart > 0 ? true : false;
+            },
+			updateHref(paramColor){
+				var urlParam = 'color' + '=' + paramColor;
+                return urlParam;
+            },
+			updateProduct (image) {
+                this.mainImage = image;
+            }
+		},
+		beforeMount(){
+			const urlParams = new URLSearchParams(window.location.search);
+			const colorVar = urlParams.get('color');
+
+			console.log(colorVar);
 		},
         computed: {
-			getSaleStatus: function (){
-				if (this.inventory > 10) {
+			getSaleStatus: function () {
+				const invStock = this.inventory;
+				if (invStock > 10) {
+					this.inStock = true;
 					return 'In Stock';
-                } else if (this.inventory <= 10 && this.inventory > 0){
-					return 'Almost sold out!'
+                } else if (invStock <= 10 && invStock > 0){
+					this.inStock = true;
+					return 'Almost sold out! Just ' + invStock + ' left!'
                 } else {
+					this.inStock = false;
 					return 'Out of Stock'
                 }
 
@@ -111,6 +159,6 @@
 	};
 </script>
 
-<style scoped>
-    @import 'socks.scss';
+<style scoped lang="scss">
+    @import 'socks';
 </style>
