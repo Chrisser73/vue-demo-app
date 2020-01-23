@@ -1,0 +1,41 @@
+@import "../main/variables";
+
+.nav-bar {
+  .menu {
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    background: url('/assets/menu-closed.svg') no-repeat;
+    background-position: center;
+    transition: background-image ease 0.15s;
+
+    &:hover {
+      cursor: pointer;
+      background-image: url('/assets/menu-opened.svg');
+      background-size: 47%;
+      transition: background-image ease 0.25s;
+    }
+
+    &.active {
+      .submenu {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+
+    .submenu {
+      visibility: hidden;
+      opacity: 0;
+      left: -9999999px;
+
+      position: absolute;
+      min-width: 120px;
+      padding: 10px;
+      background: white;
+
+      li {
+        list-style: none;
+      }
+    }
+  }
+}
