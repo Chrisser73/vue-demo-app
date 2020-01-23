@@ -3,6 +3,10 @@
 @import "buttons";
 @import "lists";
 
+.vue-logo img {
+  max-width: 160px;
+}
+
 .info {
   color: $color-green;
   font-weight: bold;

@@ -1,8 +1,9 @@
 <template>
     <div id="app">
 
-        <div class="nav-bar"></div>
-        <div class="img-wrapper"><img alt="Vue logo" src="../public/assets/logo.png"></div>
+        <Menu />
+
+        <div class="img-wrapper vue-logo"><img alt="Vue logo" src="../public/assets/vue-intro-logo.svg"></div>
 
         <Product
             msg="My Cool Shop"
@@ -19,18 +20,19 @@
 
 <script>
 	import Product from './components/Product.vue';
+	import Menu from './components/Menu.vue';
 
 	export default {
 		name: 'app',
 		components: {
-			Product
+			Product,
+            Menu
 		},
         data() {
 			return {
 				premium: false
             }
         }
-
 	};
 </script>
 

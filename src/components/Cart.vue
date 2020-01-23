@@ -1,4 +1,5 @@
 <template>
+
     <div id="cart" class="flex-half">
         <div v-if="cartData.premium" class="premium"><img class="icon mr-1" src="../../public/assets/diamond.svg"/> Premium User</div>
         <div class="cart mb-1">
@@ -22,7 +23,6 @@
         </div>
     </div>
 
-
 </template>
 
 <script>
@@ -43,6 +43,7 @@
 		computed: {
 			shippingPrice() {
 				if(!this.cartData.premium){
+					// eslint-disable-next-line
                     this.shippingCosts = 5.99
                     return this.shippingCosts;
                 } else {
